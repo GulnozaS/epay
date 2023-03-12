@@ -20,21 +20,25 @@ class MainCubit extends Cubit<MainState> {
     emit(state.copyWith(list: newList, balance: balance));
   }
 
-  getNewName(String name) {
-    emit(state.copyWith(nName: name));
+  getNewCard({String? name, String? number, String? expire,String? cardType, num? money}){
+    emit(state.copyWith(nExpire: expire, nNumber: number, nCardType: cardType, nMoney: money, nName:name ));
   }
 
-  getNewNumber(String number) {
-    emit(state.copyWith(nNumber: number));
-  }
-
-  getNewExpire(String expire) {
-    emit(state.copyWith(nExpire: expire));
-  }
-
-  getNewMoney(num money) {
-    emit(state.copyWith(nMoney: money));
-  }
+  // getNewName(String name) {
+  //   emit(state.copyWith(nName: name));
+  // }
+  //
+  // getNewNumber(String number) {
+  //   emit(state.copyWith(nNumber: number));
+  // }
+  //
+  // getNewExpire(String expire) {
+  //   emit(state.copyWith(nExpire: expire));
+  // }
+  //
+  // getNewMoney(num money) {
+  //   emit(state.copyWith(nMoney: money));
+  // }
 
   getNewColor(String? color) {
     emit(state.copyWith(nColor: color));
@@ -56,6 +60,10 @@ class MainCubit extends Cubit<MainState> {
     emit(state.copyWith(nSelectedImageIndex: imageIndex));
   }
 
+  getSelectedCardTypeIndex(int typeIndex){
+    emit(state.copyWith(nSelectedCardTypeIndex: typeIndex));
+  }
+
   addCard() async {
     await firestore.collection("card").add(CardModel(
             number: state.newNumber ?? "",
@@ -63,8 +71,12 @@ class MainCubit extends Cubit<MainState> {
             image: state.newImage ?? "https://upload.wikimedia.org/wikipedia/commons/8/89/HD_transparent_picture.png",
             color: state.newColor ?? "",
             expiration: state.newExpire ?? "",
-            ownerName: state.newName ?? "")
+            ownerName: state.newName ?? "", cardType: state.newCardType ?? "visa_card")
         .toJson());
     getCard();
   }
+
+  // deleteCard(){
+  //   firestore.collection("card")
+  // }
 }

@@ -12,8 +12,9 @@ class CustomCard extends StatelessWidget {
   String expiration;
   String color;
   String image;
+  String cardType;
 
-  CustomCard({Key? key, required this.expiration, required this.money, required this.number, required this.name, required this.color, required this.image}) : super(key: key);
+  CustomCard({Key? key, required this.expiration, required this.money, required this.number, required this.name, required this.color, required this.image, required this.cardType}) : super(key: key);
   final formatNumber = NumberFormat("#,##0.00", "en_US");
   @override
   Widget build(BuildContext context) {
@@ -65,8 +66,8 @@ class CustomCard extends StatelessWidget {
                 Container(
                   height: 50,
                   width: 80,
-                  decoration: const BoxDecoration(
-                      image: DecorationImage(image: AssetImage("assets/visa_card.png"), fit: BoxFit.cover)
+                  decoration:  BoxDecoration(
+                      image: DecorationImage(image: AssetImage("assets/${cardType}.png"), fit: BoxFit.cover)
                   ),
                 )
               ],

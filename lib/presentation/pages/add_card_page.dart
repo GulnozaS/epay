@@ -160,10 +160,10 @@ class _AddCardPageState extends State<AddCardPage> {
                                 Container(
                                   height: 50,
                                   width: 80,
-                                  decoration: const BoxDecoration(
+                                  decoration:  BoxDecoration(
                                       image: DecorationImage(
                                           image: AssetImage(
-                                              "assets/visa_card.png"),
+                                              "assets/${state.newCardType}.png"),
                                           fit: BoxFit.cover)),
                                 )
                               ],
@@ -252,23 +252,28 @@ class _AddCardPageState extends State<AddCardPage> {
                                   scrollDirection: Axis.horizontal,
                                   itemCount: 3,
                                   itemBuilder: (context, index) {
-                                    return Container(
-                                      height: 50,
-                                      width: 50,
-                                      margin: const EdgeInsets.only(right: 12),
-                                      padding: const EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          border: Border.all(
-                                              color:
-                                              Style.greyColor.withOpacity(0.5))),
-                                      child: Image.asset(
-                                          index == 0
-                                              ? "assets/visa_card.png"
-                                              : index == 1
-                                              ? "assets/master_card.png"
-                                              : "assets/unionpay_card.png",
-                                          fit: BoxFit.cover),
+                                    return GestureDetector(
+                                      onTap: (){
+                                        context.read<MainCubit>()..getSelectedCardTypeIndex(index)..getNewCardType(index == 0 ? "visa_card" : index == 1 ? "master_card" : "unionpay_card");
+                                      },
+                                      child: Container(
+                                        height: 50,
+                                        width: 50,
+                                        margin: const EdgeInsets.only(right: 12),
+                                        padding: const EdgeInsets.all(8),
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            border: Border.all(
+                                                color: state.selectedCardTypeIndex == index ? Style.blackColor :
+                                                Style.greyColor.withOpacity(0.5))),
+                                        child: Image.asset(
+                                            index == 0
+                                                ? "assets/visa_card.png"
+                                                : index == 1
+                                                ? "assets/master_card.png"
+                                                : "assets/unionpay_card.png",
+                                            fit: BoxFit.cover),
+                                      ),
                                     );
                                   }),
                             ),
@@ -277,7 +282,7 @@ class _AddCardPageState extends State<AddCardPage> {
                               controller: nameController,
                               keyboardType: TextInputType.text,
                               onChanged: (s) {
-                                context.read<MainCubit>().getNewName(s);
+                                context.read<MainCubit>().getNewCard(name: s);
                               },
                               validator: (s) {
                                 if (s?.isEmpty ?? true) {
@@ -299,7 +304,7 @@ class _AddCardPageState extends State<AddCardPage> {
                               controller: numberController,
                               keyboardType: TextInputType.number,
                               onChanged: (s) {
-                                context.read<MainCubit>().getNewNumber(s);
+                                context.read<MainCubit>().getNewCard(number: s);
                               },
                               validator: (s) {
                                 if (s?.isEmpty ?? true) {
@@ -350,8 +355,8 @@ class _AddCardPageState extends State<AddCardPage> {
                                               DateFormat('MM/yyyy')
                                                   .format(pickedDate!);
                                           // ignore: use_build_context_synchronously
-                                          context.read<MainCubit>().getNewExpire(
-                                              dateController.text);
+                                          context.read<MainCubit>().getNewCard(
+                                              expire: dateController.text);
                                         } else {}
                                       },
                                     ))),
@@ -360,8 +365,8 @@ class _AddCardPageState extends State<AddCardPage> {
                               controller: moneyControler,
                               keyboardType: TextInputType.number,
                               onChanged: (s) {
-                                context.read<MainCubit>().getNewMoney(
-                                    int.parse(s));
+                                context.read<MainCubit>().getNewCard(
+                                    money: int.parse(s));
                               },
                               validator: (s) {
                                 if (s?.isEmpty ?? true) {
@@ -388,6 +393,7 @@ class _AddCardPageState extends State<AddCardPage> {
                                         return const AlertDialog(
                                           title: Text("Yohooo"),
                                         );
+
                                       });
                                 }
                               },
