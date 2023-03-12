@@ -44,7 +44,6 @@ class _AddCardPageState extends State<AddCardPage> {
     'https://img4.goodfon.com/wallpaper/nbig/e/4b/volny-abstraktsiia-abstract-waves-colorful-waves.jpg',
     'https://www.stockvault.net/data/2021/01/29/282725/preview16.jpg',
     'https://media.istockphoto.com/id/1208305480/photo/beautiful-abstract-wave-technology-digital-network-background-with-blue-light-digital-effect.jpg?s=170667a&w=0&k=20&c=TjeuVJKpov4pJjSl0KP6plrILS9SW93pZng4IZ_5dZE=',
-    ''
   ];
 
   @override
@@ -391,7 +390,7 @@ class _AddCardPageState extends State<AddCardPage> {
                                   context.read<MainCubit>().addCard();
                                       showDialog(context: context, builder: (context){
                                         return const AlertDialog(
-                                          title: Text("Yohooo"),
+                                          title: Text("A new card added"),
                                         );
 
                                       });
