@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
 import '../../application/main_cubit.dart';
@@ -16,7 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final formatNumber = new NumberFormat("#,##0.00", "en_US");
+  final formatNumber = NumberFormat("#,##0.00", "en_US");
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -32,12 +31,12 @@ class _HomePageState extends State<HomePage> {
               "Your Card Information",
               style: Style.textStyleRegular(size: 24),
             )),
-            SizedBox(height: 34),
+            const SizedBox(height: 34),
             Text(
               "Available balance",
               style: Style.textStyleThin(),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             BlocBuilder<MainCubit, MainState>(
               builder: (context, state) {
                 return Text(
@@ -48,23 +47,23 @@ class _HomePageState extends State<HomePage> {
                 );
               },
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               "Your Cards",
               style: Style.textStyleRegular(),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Expanded(child: BlocBuilder<MainCubit, MainState>(
               builder: (context, state) {
                 return ListView.builder(
-                    physics: BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     itemCount: state.listOfCards?.length ?? 0,
                     itemBuilder: (context, index) {
                       return CustomCard(
                         expiration: state.listOfCards![index].expiration,
                         money: state.listOfCards![index].money,
                         number: state.listOfCards![index].number,
-                        name: state.listOfCards![index].ownerName, color: state.listOfCards![index].color,
+                        name: state.listOfCards![index].ownerName, color: state.listOfCards![index].color, image: state.listOfCards?[index].image ?? "https://upload.wikimedia.org/wikipedia/commons/8/89/HD_transparent_picture.png",
                       );
                     });
               },

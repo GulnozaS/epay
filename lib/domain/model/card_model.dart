@@ -1,8 +1,8 @@
 class CardModel {
   String ownerName;
-  int color;
+  String color;
   String image;
-  int money;
+  num money;
   String number;
   String expiration;
 

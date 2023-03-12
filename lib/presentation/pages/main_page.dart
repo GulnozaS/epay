@@ -6,6 +6,8 @@ import '../../application/main_cubit.dart';
 import '../route.gr.dart';
 
 class MainPage extends StatelessWidget {
+  const MainPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

@@ -22,14 +22,18 @@ class _AddCardPageState extends State<AddCardPage> {
   late TextEditingController dateController;
   late TextEditingController moneyControler;
   late MaskedTextController numberController;
-  List<Color> listOfColor = [
-    Color(0xff8EDFEB),
-    Color(0xff878787),
-    Color(0xff5366BE),
-    Color(0xffF59D31),
-    Color(0xFFEF9A9A),
-    Color(0xFFB71C1C),
-    Color(0xFFEF5350),
+
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+
+  List<int> listOfColor = [
+    0xff8EDFEB,
+    0xff878787,
+    0xff5366BE,
+    0xffF59D31,
+    0xFFEF9A9A,
+    0xFFB71C1C,
+    0xFFEF5350,
   ];
   List listOfImage = [
     'https://cdn.pixabay.com/photo/2015/10/30/20/13/sunrise-1014712__340.jpg',
@@ -70,294 +74,344 @@ class _AddCardPageState extends State<AddCardPage> {
           padding: const EdgeInsets.only(left: 30, right: 30, top: 40),
           child: BlocBuilder<MainCubit, MainState>(
             builder: (context, state) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                      child: Text("Add a new Card",
-                          style: Style.textStyleRegular(size: 24))),
-                  34.verticalSpace,
-                  Container(
-                    height: 171,
-                    margin: EdgeInsets.only(bottom: 14),
-                    decoration: BoxDecoration(
-                        color: Style.lightBlueColor,
-                        borderRadius: BorderRadius.circular(20)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    state.newName ?? "Owner's name",
-                                    style: Style.textStyleRegular(
-                                        size: 12,
-                                        textColor: Style.whiteColor),
-                                  ),
-                                  12.verticalSpace,
-                                  Text(
-                                    state.newNumber != null ? cardMask(
-                                        state.newNumber!) : "Card Number",
-                                    style: Style.textStyleBold(
-                                        size: 24, textColor: Style.whiteColor),
-                                  )
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    "A Credit Card",
-                                    style: Style.textStyleRegular(
-                                        size: 12, textColor: Style.whiteColor),
-                                  ),
-                                  12.verticalSpace,
-                                  Text(
-                                    state.newExpire ?? "Expire Date",
-                                    style: Style.textStyleBold(
-                                        size: 16, textColor: Style.whiteColor),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Your Balance",
-                                    style: Style.textStyleRegular(
-                                        size: 12,
-                                        textColor:
-                                        Style.whiteColor.withOpacity(0.7)),
-                                  ),
-                                  Text(
-                                    state.newMoney != null ? state.newMoney
-                                        .toString() : "0",
-                                    style: Style.textStyleBold(
-                                        size: 22, textColor: Style.whiteColor),
-                                  )
-                                ],
-                              ),
-                              Container(
-                                height: 50,
-                                width: 80,
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: AssetImage(
-                                            "assets/visa_card.png"),
-                                        fit: BoxFit.cover)),
-                              )
-                            ],
-                          ),
-                        ],
+              return Form(
+                key: formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                        child: Text("Add a new Card",
+                            style: Style.textStyleRegular(size: 24))),
+                    34.verticalSpace,
+                    Container(
+                      height: 171,
+                      margin: const EdgeInsets.only(bottom: 14),
+                      decoration: BoxDecoration(
+                          color: Color(int.parse(state.newColor ?? "0xff8EDFEB")),
+                          borderRadius: BorderRadius.circular(20),
+                        image: DecorationImage(image: NetworkImage(state.newImage != null ? state.newImage! : "https://upload.wikimedia.org/wikipedia/commons/8/89/HD_transparent_picture.png"), fit: BoxFit.cover)
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      state.newName ?? "Owner's name",
+                                      style: Style.textStyleRegular(
+                                          size: 12,
+                                          textColor: Style.whiteColor),
+                                    ),
+                                    12.verticalSpace,
+                                    Text(
+                                      state.newNumber != null ? cardMask(
+                                          state.newNumber!) : "Card Number",
+                                      style: Style.textStyleBold(
+                                          size: 24, textColor: Style.whiteColor),
+                                    )
+                                  ],
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      "A Credit Card",
+                                      style: Style.textStyleRegular(
+                                          size: 12, textColor: Style.whiteColor),
+                                    ),
+                                    12.verticalSpace,
+                                    Text(
+                                      state.newExpire ?? "Expire Date",
+                                      style: Style.textStyleBold(
+                                          size: 16, textColor: Style.whiteColor),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Your Balance",
+                                      style: Style.textStyleRegular(
+                                          size: 12,
+                                          textColor:
+                                          Style.whiteColor.withOpacity(0.7)),
+                                    ),
+                                    Text(
+                                      state.newMoney != null ? state.newMoney
+                                          .toString() : "0",
+                                      style: Style.textStyleBold(
+                                          size: 22, textColor: Style.whiteColor),
+                                    )
+                                  ],
+                                ),
+                                Container(
+                                  height: 50,
+                                  width: 80,
+                                  decoration: const BoxDecoration(
+                                      image: DecorationImage(
+                                          image: AssetImage(
+                                              "assets/visa_card.png"),
+                                          fit: BoxFit.cover)),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  8.verticalSpace,
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Choose Color",
-                            style: Style.textStyleThin(),
-                          ),
-                          8.verticalSpace,
-                          SizedBox(
-                            height: 50,
-                            child: ListView.builder(
-                                physics: BouncingScrollPhysics(),
-                                scrollDirection: Axis.horizontal,
-                                itemCount: listOfColor.length,
-                                itemBuilder: (context, index) {
-                                  return GestureDetector(
-                                    onTap: (){
-                                      context.read<MainCubit>()..getSelectedColor(index);
-                                    },
-                                    child: Container(
+                    8.verticalSpace,
+                    Expanded(
+                      child: SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Choose Color",
+                              style: Style.textStyleThin(),
+                            ),
+                            8.verticalSpace,
+                            SizedBox(
+                              height: 50,
+                              child: ListView.builder(
+                                  physics: const BouncingScrollPhysics(),
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: listOfColor.length,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                      onTap: (){
+                                        context.read<MainCubit>()..getSelectedColorIndex(index)..getNewColor(listOfColor[index].toString());
+                                      },
+                                      child: Container(
+                                        height: 50,
+                                        width: 50,
+                                        margin: const EdgeInsets.only(right: 12),
+                                        decoration: BoxDecoration(
+                                            color: Color(listOfColor[index]),
+                                            border: Border.all(color: state.selectedColorIndex == index ? Style.blackColor : Style.transparentColor),
+                                            shape: BoxShape.circle),
+                                      ),
+                                    );
+                                  }),
+                            ),
+                            8.verticalSpace,
+                            Text(
+                              "Choose Image",
+                              style: Style.textStyleThin(),
+                            ),
+                            8.verticalSpace,
+                            SizedBox(
+                              height: 50,
+                              child: ListView.builder(
+                                  physics: const BouncingScrollPhysics(),
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: listOfImage.length,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                      onTap: (){
+                                        context.read<MainCubit>()..getSelectedImageIndex(index)..getNewImage(listOfImage[index]);
+                                      },
+                                      child: Container(
+                                        height: 50,
+                                        width: 50,
+                                        margin: const EdgeInsets.only(right: 12),
+                                        decoration: BoxDecoration(
+                                          border: Border.all(color: index == state.selectedImageIndex ? Style.blackColor : Style.transparentColor),
+                                            image: DecorationImage(
+                                                image: NetworkImage(
+                                                    listOfImage[index]),
+                                                fit: BoxFit.cover),
+                                            shape: BoxShape.circle),
+                                      ),
+                                    );
+                                  }),
+                            ),
+                            8.verticalSpace,
+                            Text(
+                              "Choose Card Type",
+                              style: Style.textStyleThin(),
+                            ),
+                            8.verticalSpace,
+                            SizedBox(
+                              height: 50,
+                              child: ListView.builder(
+                                  physics: const BouncingScrollPhysics(),
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: 3,
+                                  itemBuilder: (context, index) {
+                                    return Container(
                                       height: 50,
                                       width: 50,
-                                      margin: EdgeInsets.only(right: 12),
+                                      margin: const EdgeInsets.only(right: 12),
+                                      padding: const EdgeInsets.all(8),
                                       decoration: BoxDecoration(
-                                          color: listOfColor[index],
-                                          border: Border.all(color: state.selectedColorIndex == index ? Style.blackColor : Style.transparentColor),
-                                          shape: BoxShape.circle),
-                                    ),
-                                  );
-                                }),
-                          ),
-                          8.verticalSpace,
-                          Text(
-                            "Choose Image",
-                            style: Style.textStyleThin(),
-                          ),
-                          8.verticalSpace,
-                          SizedBox(
-                            height: 50,
-                            child: ListView.builder(
-                                physics: BouncingScrollPhysics(),
-                                scrollDirection: Axis.horizontal,
-                                itemCount: listOfImage.length,
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                    height: 50,
-                                    width: 50,
-                                    margin: EdgeInsets.only(right: 12),
-                                    decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: NetworkImage(
-                                                listOfImage[index]),
-                                            fit: BoxFit.cover),
-                                        shape: BoxShape.circle),
-                                  );
-                                }),
-                          ),
-                          8.verticalSpace,
-                          Text(
-                            "Choose Card Type",
-                            style: Style.textStyleThin(),
-                          ),
-                          8.verticalSpace,
-                          SizedBox(
-                            height: 50,
-                            child: ListView.builder(
-                                physics: BouncingScrollPhysics(),
-                                scrollDirection: Axis.horizontal,
-                                itemCount: 3,
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                    height: 50,
-                                    width: 50,
-                                    margin: EdgeInsets.only(right: 12),
-                                    padding: EdgeInsets.all(8),
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        border: Border.all(
-                                            color:
-                                            Style.greyColor.withOpacity(0.5))),
-                                    child: Image.asset(
-                                        index == 0
-                                            ? "assets/visa_card.png"
-                                            : index == 1
-                                            ? "assets/master_card.png"
-                                            : "assets/unionpay_card.png",
-                                        fit: BoxFit.cover),
-                                  );
-                                }),
-                          ),
-                          24.verticalSpace,
-                          TextFormField(
-                            controller: nameController,
-                            keyboardType: TextInputType.text,
-                            onChanged: (s) {
-                              context.read<MainCubit>().getNewName(s);
-                            },
-                            decoration: InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 24, vertical: 8),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20)),
-                                hintText: "Owner name",
-                                hintStyle: Style.textStyleThin(
-                                    size: 14, textColor: Style.greyColor)),
-                          ),
-                          12.verticalSpace,
-                          TextFormField(
-                            controller: numberController,
-                            keyboardType: TextInputType.number,
-                            onChanged: (s) {
-                              context.read<MainCubit>().getNewNumber(s);
-                            },
-                            decoration: InputDecoration(
-                              contentPadding:
-                              EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              hintText: "Card number",
-                              hintStyle: Style.textStyleThin(
-                                  size: 14, textColor: Style.greyColor),
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                              color:
+                                              Style.greyColor.withOpacity(0.5))),
+                                      child: Image.asset(
+                                          index == 0
+                                              ? "assets/visa_card.png"
+                                              : index == 1
+                                              ? "assets/master_card.png"
+                                              : "assets/unionpay_card.png",
+                                          fit: BoxFit.cover),
+                                    );
+                                  }),
                             ),
-                          ),
-                          12.verticalSpace,
-                          TextFormField(
-                              controller: dateController,
-                              readOnly: true,
+                            24.verticalSpace,
+                            TextFormField(
+                              controller: nameController,
+                              keyboardType: TextInputType.text,
+                              onChanged: (s) {
+                                context.read<MainCubit>().getNewName(s);
+                              },
+                              validator: (s) {
+                                if (s?.isEmpty ?? true) {
+                                  return "*Enter the owner's name";
+                                }
+                                return null;
+                              },
                               decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.symmetric(
+                                  contentPadding: const EdgeInsets.symmetric(
                                       horizontal: 24, vertical: 8),
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(20)),
-                                  hintText: "Expiration Date",
+                                  hintText: "Owner name",
                                   hintStyle: Style.textStyleThin(
-                                      size: 14, textColor: Style.greyColor),
-                                  suffixIcon: InkWell(
-                                    child: Icon(Icons.calendar_month),
-                                    onTap: () async {
-                                      pickedDate = await showDatePicker(
-                                          context: context,
-                                          initialDate: DateTime.now(),
-                                          firstDate: DateTime.now(),
-                                          //DateTime.now() - not to allow to choose before today.
-                                          lastDate: DateTime(2050));
-
-                                      if (pickedDate != null) {
-                                        dateController.text =
-                                            DateFormat('MM/yyyy')
-                                                .format(pickedDate!);
-                                        context.read<MainCubit>().getNewExpire(
-                                            dateController.text);
-                                      } else {}
-                                    },
-                                  ))),
-                          12.verticalSpace,
-                          TextFormField(
-                            controller: moneyControler,
-                            keyboardType: TextInputType.number,
-                            onChanged: (s) {
-                              context.read<MainCubit>().getNewMoney(
-                                  int.parse(s));
-                            },
-                            decoration: InputDecoration(
-                              contentPadding:
-                              EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              hintText: "Amount of Money",
-                              hintStyle: Style.textStyleThin(
-                                  size: 14, textColor: Style.greyColor),
+                                      size: 14, textColor: Style.greyColor)),
                             ),
-                          ),
-                          32.verticalSpace,
-                          Container(
-                            padding:
-                            EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                            decoration: BoxDecoration(
-                                color: Style.primaryBlue.withOpacity(0.5),
-                                borderRadius: BorderRadius.circular(20)),
-                            child: Center(
-                                child: Text(
-                                  "Add Card",
-                                  style: Style.textStyleRegular(
-                                      textColor: Style.whiteColor),
-                                )),
-                          )
-                        ],
+                            12.verticalSpace,
+                            TextFormField(
+                              controller: numberController,
+                              keyboardType: TextInputType.number,
+                              onChanged: (s) {
+                                context.read<MainCubit>().getNewNumber(s);
+                              },
+                              validator: (s) {
+                                if (s?.isEmpty ?? true) {
+                                  return "*Enter the card number";
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                contentPadding:
+                                const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                                hintText: "Card number",
+                                hintStyle: Style.textStyleThin(
+                                    size: 14, textColor: Style.greyColor),
+                              ),
+                            ),
+                            12.verticalSpace,
+                            TextFormField(
+                                controller: dateController,
+                                readOnly: true,
+                                validator: (s) {
+                                  if (s?.isEmpty ?? true) {
+                                    return "*Enter the expiration date";
+                                  }
+                                  return null;
+                                },
+                                decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        horizontal: 24, vertical: 8),
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20)),
+                                    hintText: "Expiration Date",
+                                    hintStyle: Style.textStyleThin(
+                                        size: 14, textColor: Style.greyColor),
+                                    suffixIcon: InkWell(
+                                      child: const Icon(Icons.calendar_month),
+                                      onTap: () async {
+                                        pickedDate = await showDatePicker(
+                                            context: context,
+                                            initialDate: DateTime.now(),
+                                            firstDate: DateTime.now(),
+                                            //DateTime.now() - not to allow to choose before today.
+                                            lastDate: DateTime(2050));
+
+                                        if (pickedDate != null) {
+                                          dateController.text =
+                                              DateFormat('MM/yyyy')
+                                                  .format(pickedDate!);
+                                          // ignore: use_build_context_synchronously
+                                          context.read<MainCubit>().getNewExpire(
+                                              dateController.text);
+                                        } else {}
+                                      },
+                                    ))),
+                            12.verticalSpace,
+                            TextFormField(
+                              controller: moneyControler,
+                              keyboardType: TextInputType.number,
+                              onChanged: (s) {
+                                context.read<MainCubit>().getNewMoney(
+                                    int.parse(s));
+                              },
+                              validator: (s) {
+                                if (s?.isEmpty ?? true) {
+                                  return "*Enter the amount of money";
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                contentPadding:
+                                const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                                hintText: "Amount of Money",
+                                hintStyle: Style.textStyleThin(
+                                    size: 14, textColor: Style.greyColor),
+                              ),
+                            ),
+                            32.verticalSpace,
+                            GestureDetector(
+                              onTap: () {
+                                if (formKey.currentState?.validate() ?? false) {
+                                  context.read<MainCubit>().addCard();
+                                      showDialog(context: context, builder: (context){
+                                        return const AlertDialog(
+                                          title: Text("Yohooo"),
+                                        );
+                                      });
+                                }
+                              },
+                              child: Container(
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                decoration: BoxDecoration(
+                                    color: (formKey.currentState?.validate() ?? false) ? Style.primaryBlue : Style.primaryBlue.withOpacity(0.5),
+                                    borderRadius: BorderRadius.circular(20)),
+                                child: Center(
+                                    child: Text(
+                                      "Add Card",
+                                      style: Style.textStyleRegular(
+                                          textColor: Style.whiteColor),
+                                    )),
+                              ),
+                            ),
+                            32.verticalSpace
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               );
             },
           ),

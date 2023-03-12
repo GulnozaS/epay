@@ -11,6 +11,7 @@ class MainState {
   String? newImage;
   String? newCardType;
   int? selectedColorIndex;
+  int? selectedImageIndex;
 
   MainState(
       {this.listOfCards,
@@ -22,7 +23,9 @@ class MainState {
       this.newColor,
       this.newCardType,
       this.newImage,
-      this.selectedColorIndex = 0});
+      this.selectedColorIndex = 0,
+        this.selectedImageIndex = -1
+      });
 
   MainState copyWith(
       {List<CardModel>? list,
@@ -34,7 +37,8 @@ class MainState {
       String? nColor,
       String? nCardType,
       String? nImage,
-      int? nSelectedColorIndex}) {
+      int? nSelectedColorIndex,
+      int? nSelectedImageIndex}) {
     return MainState(
         listOfCards: list ?? listOfCards,
         totalBalance: balance ?? totalBalance,
@@ -45,7 +49,8 @@ class MainState {
         newCardType: nCardType ?? newCardType,
         newImage: nImage ?? newImage,
         newColor: nColor ?? newColor,
-      selectedColorIndex: nSelectedColorIndex ?? selectedColorIndex
+      selectedColorIndex: nSelectedColorIndex ?? selectedColorIndex,
+      selectedImageIndex: nSelectedImageIndex ?? selectedImageIndex
     );
   }
 }
