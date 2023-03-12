@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1087317526020",
+    "project_id": "epay-154b4",
+    "storage_bucket": "epay-154b4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087317526020:android:87a9feae09439529f8d751",
+        "android_client_info": {
+          "package_name": "com.example.epay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1087317526020-7n6613f5dignesii8agl28n20q8ibr3u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8Mh3qqj8_ycXKvwMJBCGdfJwOVrkcWwU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1087317526020-7n6613f5dignesii8agl28n20q8ibr3u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
