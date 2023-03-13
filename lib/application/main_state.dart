@@ -2,6 +2,7 @@ import '../domain/model/card_model.dart';
 
 class MainState {
   List<CardModel>? listOfCards;
+  List? listOfCardId = [];
   num? totalBalance;
   String? newName;
   String? newNumber;
@@ -16,6 +17,7 @@ class MainState {
 
   MainState(
       {this.listOfCards,
+      this.listOfCardId,
       this.totalBalance,
       this.newName,
       this.newExpire,
@@ -23,14 +25,15 @@ class MainState {
       this.newMoney,
       this.newColor = "0xff8EDFEB",
       this.newCardType = "visa_card",
-      this.newImage = "https://upload.wikimedia.org/wikipedia/commons/8/89/HD_transparent_picture.png",
+      this.newImage =
+          "https://upload.wikimedia.org/wikipedia/commons/8/89/HD_transparent_picture.png",
       this.selectedColorIndex = 0,
-        this.selectedImageIndex = -1,
-        this.selectedCardTypeIndex = 0
-      });
+      this.selectedImageIndex = -1,
+      this.selectedCardTypeIndex = 0});
 
   MainState copyWith(
       {List<CardModel>? list,
+        List? listOfCardId,
       num? balance,
       String? nName,
       String? nNumber,
@@ -44,6 +47,7 @@ class MainState {
       int? nSelectedCardTypeIndex}) {
     return MainState(
         listOfCards: list ?? listOfCards,
+        listOfCardId: listOfCardId ?? this.listOfCardId,
         totalBalance: balance ?? totalBalance,
         newName: nName ?? newName,
         newExpire: nExpire ?? newExpire,
@@ -52,9 +56,8 @@ class MainState {
         newCardType: nCardType ?? newCardType,
         newImage: nImage ?? newImage,
         newColor: nColor ?? newColor,
-      selectedColorIndex: nSelectedColorIndex ?? selectedColorIndex,
-      selectedImageIndex: nSelectedImageIndex ?? selectedImageIndex,
-      selectedCardTypeIndex: nSelectedCardTypeIndex ?? selectedCardTypeIndex
-    );
+        selectedColorIndex: nSelectedColorIndex ?? selectedColorIndex,
+        selectedImageIndex: nSelectedImageIndex ?? selectedImageIndex,
+        selectedCardTypeIndex: nSelectedCardTypeIndex ?? selectedCardTypeIndex);
   }
 }

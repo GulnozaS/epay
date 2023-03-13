@@ -12,12 +12,14 @@ class MainCubit extends Cubit<MainState> {
   getCard() async {
     var res = await firestore.collection("card").get();
     List<CardModel> newList = [];
+    List newListId = [];
     num balance = 0;
     for (var element in res.docs) {
       newList.add(CardModel.fromJson(element.data()));
+      newListId.add(element.id);
       balance += CardModel.fromJson(element.data()).money;
     }
-    emit(state.copyWith(list: newList, balance: balance));
+    emit(state.copyWith(list: newList, balance: balance, listOfCardId: newListId));
   }
 
   getNewCard({String? name, String? number, String? expire,String? cardType, num? money}){
@@ -76,7 +78,13 @@ class MainCubit extends Cubit<MainState> {
     getCard();
   }
 
-  // deleteCard(){
-  //   firestore.collection("card")
-  // }
+  deleteCard(int index){
+    firestore.collection("card").doc(state.listOfCardId?[index]).delete();
+    print(state.totalBalance);
+    print(state.listOfCards?[index].money ?? 0);
+    state.totalBalance != 0 ?  state.totalBalance = state.totalBalance! - (state.listOfCards?[index].money ?? 0) : state.totalBalance = 0;
+    state.listOfCards?.removeAt(index);
+    state.listOfCardId?.removeAt(index);
+    emit(state.copyWith(list: state.listOfCards, balance: state.totalBalance));
+  }
 }

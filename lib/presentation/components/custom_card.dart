@@ -20,7 +20,7 @@ class CustomCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 171,
-      margin: const EdgeInsets.only(bottom: 14),
+      margin: const EdgeInsets.only(top: 14),
       decoration: BoxDecoration(
           color:  Color(int.parse(color)),
           borderRadius: BorderRadius.circular(20),
@@ -40,7 +40,7 @@ class CustomCard extends StatelessWidget {
                   children: [
                     Text(name, style: Style.textStyleRegular(size: 12, textColor: Style.whiteColor),),
                     const SizedBox(height: 12),
-                    Text(cardMask(number), style: Style.textStyleBold(size: 24, textColor: Style.whiteColor),)
+                    Text(maskedCard(number), style: Style.textStyleBold(size: 24, textColor: Style.whiteColor),)
                   ],
                 ),
                 Column(
@@ -67,7 +67,7 @@ class CustomCard extends StatelessWidget {
                   height: 50,
                   width: 80,
                   decoration:  BoxDecoration(
-                      image: DecorationImage(image: AssetImage("assets/${cardType}.png"), fit: BoxFit.cover)
+                      image: DecorationImage(image: AssetImage("assets/$cardType.png"), fit: BoxFit.cover)
                   ),
                 )
               ],

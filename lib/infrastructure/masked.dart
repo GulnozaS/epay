@@ -1,4 +1,4 @@
-String cardMask(String cardNumber){
+String maskedCard(String cardNumber){
   StringBuffer result = StringBuffer();
   for(int i =0; i<cardNumber.length;i++){
     if(i<4 || i>13){

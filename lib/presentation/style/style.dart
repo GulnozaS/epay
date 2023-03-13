@@ -7,9 +7,9 @@ class Style {
   //------------------------ BottomNavigationBar style -------------------------//
 
   static const selectedGradientBottomNav =
-  LinearGradient(colors: [Color(0xff6499FF), Color(0xff2972FE)]);
+      LinearGradient(colors: [Color(0xff6499FF), Color(0xff2972FE)]);
   static const unselectedGradientBottomNav =
-  LinearGradient(colors: [Color(0x102972FE), Color(0x102972FE)]);
+      LinearGradient(colors: [Color(0x102972FE), Color(0x102972FE)]);
   static const unselectedBottomIcon = Color(0xff2972FE);
   static const borderBottomNav = Color(0xffEBEEF2);
 
@@ -22,13 +22,10 @@ class Style {
   static const greyColor = Color(0xff878787);
   static const redAccentColor = Colors.redAccent;
   static const redColor = Colors.red;
-
-
-  //----------------------- CardStyle ------------------------------------------//
-
   static const blueColor = Color(0xff5366BE);
   static const lightBlueColor = Color(0xff8EDFEB);
   static const yellowColor = Color(0xffF59D31);
+  static const starColor = Colors.yellow;
 
   //----------------------- TextStyle ------------------------------------------//
 

@@ -1,5 +1,10 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:epay/infrastructure/masked.dart';
+import 'package:epay/presentation/pages/edit_page.dart';
+import 'package:epay/presentation/route.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
 import '../../application/main_cubit.dart';
@@ -34,38 +39,127 @@ class _HomePageState extends State<HomePage> {
                   "Your Card Information",
                   style: Style.textStyleRegular(size: 24),
                 )),
-                const SizedBox(height: 34),
+                24.verticalSpace,
                 Text(
                   "Available balance",
                   style: Style.textStyleThin(),
                 ),
-                const SizedBox(height: 8),
                 Text(
                   "${state.totalBalance} UZS",
                   style: Style.textStyleBold(),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
-                const SizedBox(height: 8),
                 Text(
                   "Your Cards",
                   style: Style.textStyleRegular(),
                 ),
-                const SizedBox(height: 8),
                 Expanded(
                     child: ListView.builder(
+                        padding: const EdgeInsets.only(top: 0),
                         physics: const BouncingScrollPhysics(),
                         itemCount: state.listOfCards?.length ?? 0,
                         itemBuilder: (context, index) {
-                          return CustomCard(
-                            expiration: state.listOfCards![index].expiration,
-                            money: state.listOfCards![index].money,
-                            number: state.listOfCards![index].number,
-                            name: state.listOfCards![index].ownerName,
-                            color: state.listOfCards![index].color,
-                            image: state.listOfCards?[index].image ??
-                                "https://upload.wikimedia.org/wikipedia/commons/8/89/HD_transparent_picture.png",
-                            cardType: state.listOfCards![index].cardType,
+                          return Column(
+                            children: [
+                              CustomCard(
+                                expiration:
+                                    state.listOfCards![index].expiration,
+                                money: state.listOfCards![index].money,
+                                number: state.listOfCards![index].number,
+                                name: state.listOfCards![index].ownerName,
+                                color: state.listOfCards![index].color,
+                                image: state.listOfCards?[index].image ??
+                                    "https://upload.wikimedia.org/wikipedia/commons/8/89/HD_transparent_picture.png",
+                                cardType: state.listOfCards![index].cardType,
+                              ),
+                              Row(
+                                children: [
+                                  const Spacer(),
+                                  IconButton(
+                                    onPressed: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (con) {
+                                            return AlertDialog(
+                                              title: Column(
+                                                children: [
+                                                  Text(maskedCard(state
+                                                      .listOfCards![index]
+                                                      .number)),
+                                                  12.verticalSpace,
+                                                  const Text(
+                                                      "Do you want to delete this card?"),
+                                                  12.verticalSpace,
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        child: Container(
+                                                            color: Style
+                                                                .primaryBlue,
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8),
+                                                            child: const Text(
+                                                                "Cancel")),
+                                                      ),
+                                                      8.horizontalSpace,
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          context
+                                                              .read<MainCubit>()
+                                                              .deleteCard(
+                                                                  index);
+                                                          Navigator.pop(context);
+                                                        },
+                                                        child: Container(
+                                                            color: Style
+                                                                .greyColor
+                                                                .withOpacity(
+                                                                    0.5),
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8),
+                                                            child: const Text(
+                                                                "Delete")),
+                                                      )
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            );
+                                          });
+                                    },
+                                    icon: const Icon(Icons.delete,
+                                        color: Style.greyColor),
+                                    splashRadius: 20,
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      context.pushRoute(EditRoute(index: index));
+                                      print(index);
+                                      print(state.listOfCards?[index].ownerName);
+                                    },
+                                    icon: const Icon(Icons.edit,
+                                        color: Style.greyColor),
+                                    splashRadius: 20,
+                                  ),
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(Icons.star_border,
+                                        color: Style.greyColor),
+                                    splashRadius: 20,
+                                  ),
+                                  12.horizontalSpace
+                                ],
+                              )
+                            ],
                           );
                         }))
               ],
