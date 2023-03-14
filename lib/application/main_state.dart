@@ -1,9 +1,12 @@
 import '../domain/model/card_model.dart';
 
 class MainState {
+  // lists
   List<CardModel>? listOfCards;
   List? listOfCardId = [];
   num? totalBalance;
+
+  // adding a new card
   String? newName;
   String? newNumber;
   String? newExpire;
@@ -33,7 +36,7 @@ class MainState {
 
   MainState copyWith(
       {List<CardModel>? list,
-        List? listOfCardId,
+      List? listOfCardId,
       num? balance,
       String? nName,
       String? nNumber,

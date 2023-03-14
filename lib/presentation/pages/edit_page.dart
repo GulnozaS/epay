@@ -1,7 +1,12 @@
-import 'package:epay/presentation/components/custom_card.dart';
+import 'package:epay/presentation/components/custom_add_button.dart';
+import 'package:epay/presentation/components/custom_choose_color.dart';
+import 'package:epay/presentation/components/custom_choose_image.dart';
+import 'package:epay/presentation/components/custom_choose_type.dart';
+import 'package:epay/presentation/components/custom_textform_field.dart';
 import 'package:epay/presentation/style/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../application/main_cubit.dart';
@@ -9,9 +14,65 @@ import '../../application/main_state.dart';
 import '../../infrastructure/masked.dart';
 
 // ignore: must_be_immutable
-class EditPage extends StatelessWidget {
+class EditPage extends StatefulWidget {
   int index;
+
   EditPage({Key? key, required this.index}) : super(key: key);
+
+  @override
+  State<EditPage> createState() => _EditPageState();
+}
+
+class _EditPageState extends State<EditPage> {
+  late TextEditingController nameController;
+
+  late TextEditingController dateController;
+
+  late TextEditingController moneyController;
+
+  late MaskedTextController numberController;
+
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    nameController = TextEditingController();
+    numberController = MaskedTextController(mask: '0000 0000 0000 0000');
+    dateController = TextEditingController();
+    moneyController = TextEditingController();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      nameController.text = context
+              .read<MainCubit>()
+              .state
+              .listOfCards?[widget.index]
+              .ownerName ??
+          "";
+      numberController.text =
+          context.read<MainCubit>().state.listOfCards?[widget.index].number ??
+              "";
+      dateController.text = context
+              .read<MainCubit>()
+              .state
+              .listOfCards?[widget.index]
+              .expiration ??
+          "";
+      moneyController.text =
+          (context.read<MainCubit>().state.listOfCards?[widget.index].money ??
+                  0)
+              .toString();
+      context.read<MainCubit>().initializeNewFields(widget.index);
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    numberController.dispose();
+    dateController.dispose();
+    moneyController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +92,12 @@ class EditPage extends StatelessWidget {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        icon: Icon(Icons.arrow_back),
+                        icon: const Icon(Icons.arrow_back),
                         splashRadius: 20,
                       ),
-                      Text("Add a new Card",
+                      Text("Edit your card",
                           style: Style.textStyleRegular(size: 24)),
-                      SizedBox(
+                      const SizedBox(
                         width: 30,
                       )
                     ],
@@ -45,10 +106,13 @@ class EditPage extends StatelessWidget {
                     height: 171,
                     margin: const EdgeInsets.only(bottom: 14),
                     decoration: BoxDecoration(
-                        color: Color(int.parse(state.listOfCards?[index].color ?? "0xff8EDFEB")),
+                        color: Color(int.parse(
+                            state.listOfCards?[widget.index].color ??
+                                "0xff8EDFEB")),
                         borderRadius: BorderRadius.circular(20),
                         image: DecorationImage(
-                            image: NetworkImage(state.listOfCards?[index].image ?? "https://upload.wikimedia.org/wikipedia/commons/8/89/HD_transparent_picture.png"),
+                            image: NetworkImage(state.newImage ??
+                                "https://upload.wikimedia.org/wikipedia/commons/8/89/HD_transparent_picture.png"),
                             fit: BoxFit.cover)),
                     child: Padding(
                       padding: const EdgeInsets.all(16),
@@ -63,13 +127,16 @@ class EditPage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    state.listOfCards?[index].ownerName ?? "Owner's name",
+                                    state.newName ?? "Owner's name",
                                     style: Style.textStyleRegular(
                                         size: 12, textColor: Style.whiteColor),
                                   ),
                                   12.verticalSpace,
                                   Text(
-                                      state.listOfCards?[index].number != null ? maskedCard(state.listOfCards![index].number) : "Card number",
+                                    state.listOfCards?[widget.index].number !=
+                                            null
+                                        ? maskedCard(state.newNumber.toString())
+                                        : "Card number",
                                     style: Style.textStyleBold(
                                         size: 24, textColor: Style.whiteColor),
                                   )
@@ -85,7 +152,7 @@ class EditPage extends StatelessWidget {
                                   ),
                                   12.verticalSpace,
                                   Text(
-                                    state.listOfCards?[index].expiration ?? "Expiration date",
+                                    state.newExpire ?? "Expiration date",
                                     style: Style.textStyleBold(
                                         size: 16, textColor: Style.whiteColor),
                                   ),
@@ -103,10 +170,11 @@ class EditPage extends StatelessWidget {
                                     "Your Balance",
                                     style: Style.textStyleRegular(
                                         size: 12,
-                                        textColor: Style.whiteColor.withOpacity(0.7)),
+                                        textColor:
+                                            Style.whiteColor.withOpacity(0.7)),
                                   ),
                                   Text(
-                                    state.listOfCards?[index].money != null ? state.listOfCards![index].money.toString() : "0",
+                                    state.newMoney.toString(),
                                     style: Style.textStyleBold(
                                         size: 22, textColor: Style.whiteColor),
                                   )
@@ -118,15 +186,79 @@ class EditPage extends StatelessWidget {
                                 decoration: BoxDecoration(
                                     image: DecorationImage(
                                         image: AssetImage(
-                                            "assets/${state.listOfCards?[index].cardType ?? "visa_card"}.png"),
+                                            "assets/${state.newCardType ?? "visa_card"}.png"),
                                         fit: BoxFit.cover)),
-                              )
+                              ),
                             ],
                           ),
                         ],
                       ),
                     ),
-                  )
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      child: Column(
+                        children: [
+                          CustomChooseColor(isEdit: true),
+                          CustomChooseImage(isEdit: true),
+                          CustomChooseType(isEdit: true),
+                          CustomTextFormField(
+                              controller: nameController,
+                              keyboardType: TextInputType.text,
+                              onChanged: (s) {
+                                context.read<MainCubit>().editCard(name: s);
+                              },
+                              validator: (s) {
+                                return null;
+                              },
+                              hintText: "Owner name"),
+                          CustomTextFormField(
+                              controller: numberController,
+                              keyboardType: TextInputType.number,
+                              onChanged: (s) {
+                                context.read<MainCubit>().editCard(number: s);
+                              },
+                              validator: (s) {
+                                return null;
+                              },
+                              hintText: "Card number"),
+                          CustomTextFormField(
+                              controller: dateController,
+                              keyboardType: TextInputType.text,
+                              readOnly: true,
+                              onChanged: (s) {
+                                context.read<MainCubit>().editCard(expire: s);
+                              },
+                              validator: (s) {
+                                return null;
+                              },
+                              isDate: true,
+                              hintText: "Expiration date"),
+                          CustomTextFormField(
+                              controller: moneyController,
+                              keyboardType: TextInputType.number,
+                              onChanged: (s) {
+                                context
+                                    .read<MainCubit>()
+                                    .editCard(money: int.parse(s));
+                              },
+                              validator: (s) {
+                                return null;
+                              },
+                              hintText: "Amount of money"),
+                          CustomAddButton(
+                            onTap: () {
+                              context
+                                  .read<MainCubit>()
+                                  .finalizeEdit(widget.index);
+                            },
+                            title: 'Save',
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               );
             },

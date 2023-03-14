@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../application/main_cubit.dart';
-import '../../../style/style.dart';
+import '../../application/main_cubit.dart';
+import '../style/style.dart';
 
+// ignore: must_be_immutable
 class CustomChooseImage extends StatefulWidget {
-  const CustomChooseImage({Key? key}) : super(key: key);
+  bool? isEdit;
+
+  CustomChooseImage({Key? key, this.isEdit = false}) : super(key: key);
 
   @override
   State<CustomChooseImage> createState() => _CustomChooseImageState();
@@ -48,9 +51,11 @@ class _CustomChooseImageState extends State<CustomChooseImage> {
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
-                          context.read<MainCubit>()
-                            ..getSelectedImageIndex(index)
-                            ..getNewImage(listOfImage[index]);
+                          widget.isEdit ?? false
+                              ? context.read<MainCubit>().editCard(
+                                  imageIndex: index, image: listOfImage[index])
+                              : context.read<MainCubit>().getNewCard(
+                                  imageIndex: index, image: listOfImage[index]);
                         },
                         child: Container(
                           height: 50,

@@ -51,7 +51,8 @@ class _CustomNewCardState extends State<CustomNewCard> {
                           ),
                           12.verticalSpace,
                           Text(
-                            state.newNumber != null
+                            state.newNumber != null &&
+                                    state.newNumber != "Card Number"
                                 ? maskedCard(state.newNumber!)
                                 : "Card Number",
                             style: Style.textStyleBold(

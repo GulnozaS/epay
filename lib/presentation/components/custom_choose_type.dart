@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../application/main_cubit.dart';
-import '../../../../application/main_state.dart';
-import '../../../style/style.dart';
+import '../../application/main_cubit.dart';
+import '../../application/main_state.dart';
+import '../style/style.dart';
 
+// ignore: must_be_immutable
 class CustomChooseType extends StatefulWidget {
-  const CustomChooseType({Key? key}) : super(key: key);
+  bool? isEdit;
+
+  CustomChooseType({Key? key, this.isEdit}) : super(key: key);
 
   @override
   State<CustomChooseType> createState() => _CustomChooseTypeState();
@@ -37,13 +40,21 @@ class _CustomChooseTypeState extends State<CustomChooseType> {
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
-                          context.read<MainCubit>()
-                            ..getSelectedCardTypeIndex(index)
-                            ..getNewCardType(index == 0
-                                ? "visa_card"
-                                : index == 1
-                                    ? "master_card"
-                                    : "unionpay_card");
+                          widget.isEdit ?? false
+                              ? context.read<MainCubit>().editCard(
+                                  typeIndex: index,
+                                  cardType: index == 0
+                                      ? "visa_card"
+                                      : index == 1
+                                          ? "master_card"
+                                          : "unionpay_card")
+                              : context.read<MainCubit>().getNewCard(
+                                  typeIndex: index,
+                                  cardType: index == 0
+                                      ? "visa_card"
+                                      : index == 1
+                                          ? "master_card"
+                                          : "unionpay_card");
                         },
                         child: Container(
                           height: 50,

@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../application/main_cubit.dart';
-import '../../../../application/main_state.dart';
-import '../../../style/style.dart';
+import '../../application/main_cubit.dart';
+import '../../application/main_state.dart';
+import '../style/style.dart';
 
+// ignore: must_be_immutable
 class CustomChooseColor extends StatefulWidget {
-  const CustomChooseColor({Key? key}) : super(key: key);
+  bool? isEdit;
+   CustomChooseColor({Key? key, this.isEdit = false}) : super(key: key);
 
   @override
   State<CustomChooseColor> createState() => _CustomChooseColorState();
@@ -44,9 +46,8 @@ class _CustomChooseColorState extends State<CustomChooseColor> {
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
-                          context.read<MainCubit>()
-                            ..getSelectedColorIndex(index)
-                            ..getNewColor(listOfColor[index].toString());
+                          widget.isEdit ?? false ? context.read<MainCubit>().editCard(colorIndex: index, color: listOfColor[index].toString()) : context.read<MainCubit>()
+                            .getNewCard(colorIndex: index, color: listOfColor[index].toString());
                         },
                         child: Container(
                           height: 50,
