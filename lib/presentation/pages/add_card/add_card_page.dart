@@ -61,7 +61,7 @@ class _AddCardPageState extends State<AddCardPage> {
                   children: [
                     Center(
                         child: Text("Add a new Card",
-                            style: Style.textStyleRegular(size: 24))),
+                            style: Theme.of(context).textTheme.headline2)),
                     24.verticalSpace,
                     const CustomNewCard(),
                     8.verticalSpace,

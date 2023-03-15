@@ -89,11 +89,11 @@ class _EditPageState extends State<EditPage> {
                             Navigator.pop(context);
                             context.read<MainCubit>().cleanNewFields();
                           },
-                          icon: const Icon(Icons.arrow_back),
+                          icon: const Icon(Icons.arrow_back, color: Style.primaryBlue,),
                           splashRadius: 20,
                         ),
                         Text("Edit your card",
-                            style: Style.textStyleRegular(size: 24)),
+                            style: Theme.of(context).textTheme.headline2),
                         const SizedBox(
                           width: 30,
                         )

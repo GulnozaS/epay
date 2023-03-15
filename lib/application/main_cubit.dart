@@ -165,9 +165,11 @@ class MainCubit extends Cubit<MainState> {
         emit(state.copyWith(fav: i));
       }
     }
+    getCard();
   }
 
   sendNotification(String? fcmToken) {
+    print("notif");
     http.post(
       Uri.parse("https://fcm.googleapis.com/fcm/send"),
       headers: {

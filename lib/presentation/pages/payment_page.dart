@@ -34,9 +34,6 @@ class _PaymentPageState extends State<PaymentPage> {
     getToken();
     cardController = MaskedTextController(mask: '0000 0000 0000 0000');
     moneyController = TextEditingController();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<MainCubit>().findFavorite();
-    });
     super.initState();
   }
 
@@ -80,7 +77,7 @@ class _PaymentPageState extends State<PaymentPage> {
                       children: [
                         Center(
                             child: Text("Make a payment",
-                                style: Style.textStyleRegular(size: 24))),
+                                style:Theme.of(context).textTheme.headline2)),
                         24.verticalSpace,
                         CustomTextFormField(
                             controller: cardController,
@@ -103,6 +100,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                 return "*Enter the amount of money";
                               }
                               return null;
+
                             },
                             hintText: "Amount of money"),
                         12.verticalSpace,
@@ -162,7 +160,8 @@ class _PaymentPageState extends State<PaymentPage> {
                             }
                           },
                           title: "Pay",
-                          isValid: true,
+                          isValid: formKey.currentState?.validate() ??
+                              false,
                         )
                       ]),
                 );

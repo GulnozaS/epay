@@ -33,11 +33,11 @@ class MainPage extends StatelessWidget {
                 },
                 items: const [
                   BottomNavigationBarItem(
-                      label: 'Home', icon: Icon(Icons.home)),
+                      label: '', icon: Icon(Icons.home)),
                   BottomNavigationBarItem(
-                      label: 'Add', icon: Icon(Icons.add_circle_outline)),
+                      label: '', icon: Icon(Icons.add_circle_outline)),
                   BottomNavigationBarItem(
-                      label: 'Pay', icon: Icon(Icons.payment)),
+                      label: '', icon: Icon(Icons.payment)),
                 ],
               ));
         },

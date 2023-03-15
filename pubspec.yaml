@@ -47,7 +47,7 @@ dependencies:
   flutter_bloc: ^8.1.2
   http: ^0.13.5
   motion_toast: ^2.6.5
-
+  shared_preferences: ^2.0.18
 dev_dependencies:
   flutter_test:
     sdk: flutter

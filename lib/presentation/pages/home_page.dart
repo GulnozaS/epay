@@ -1,10 +1,12 @@
 import 'package:epay/infrastructure/masked.dart';
+import 'package:epay/presentation/app_widget.dart';
 import 'package:epay/presentation/pages/edit/edit_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
+import '../../application/local_store.dart';
 import '../../application/main_cubit.dart';
 import '../../application/main_state.dart';
 import '../components/custom_card.dart';
@@ -19,6 +21,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final formatNumber = NumberFormat("#,##0.00", "en_US");
+  bool isChangeTheme = true;
+  @override
+  void initState() {
+    getInfo();
+    super.initState();
+  }
+  Future getInfo() async{
+    isChangeTheme = await LocalStore.getTheme();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +46,23 @@ class _HomePageState extends State<HomePage> {
                 Center(
                     child: Text(
                   "Your Card Information",
-                  style: Style.textStyleRegular(size: 24),
+                  style: Theme.of(context).textTheme.headline2,
                 )),
                 24.verticalSpace,
-                Text(
-                  "Available balance",
-                  style: Style.textStyleThin(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Available balance",
+                      style: Style.textStyleThin(),
+                    ),
+                    IconButton(onPressed: (){
+                      isChangeTheme = !isChangeTheme;
+                      AppWidget.of(context)!.change();
+                      LocalStore.setTheme(isChangeTheme);
+                      setState(() {});
+                    }, icon: Icon(Icons.dark_mode, color: isChangeTheme ? Style.blackColor : Style.whiteColor,), splashRadius: 20,)
+                  ],
                 ),
                 Text(
                   "${state.totalBalance} UZS",
@@ -48,9 +70,10 @@ class _HomePageState extends State<HomePage> {
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
+                12.verticalSpace,
                 Text(
                   "Your Cards",
-                  style: Style.textStyleRegular(),
+                  style: Theme.of(context).textTheme.headline1,
                 ),
                 Expanded(
                     child: ListView.builder(
@@ -161,8 +184,7 @@ class _HomePageState extends State<HomePage> {
                                     onPressed: () {
                                       context
                                           .read<MainCubit>()
-                                          .makeFavorite(index);
-                                      context.read<MainCubit>().findFavorite();
+                                          ..makeFavorite(index)..findFavorite();
                                     },
                                     icon: Icon(
                                         state.listOfCards?[index].star ?? false

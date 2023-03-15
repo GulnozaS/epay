@@ -42,9 +42,9 @@ class CustomTextFormField extends StatelessWidget {
             hintText: hintText,
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+            border: Theme.of(context).inputDecorationTheme.border,
             hintStyle:
-                Style.textStyleThin(size: 14, textColor: Style.greyColor),
+            Theme.of(context).inputDecorationTheme.hintStyle,
             suffixIcon: isDate ?? false
                 ? InkWell(
                     child: const Icon(Icons.calendar_month),
