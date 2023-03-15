@@ -156,6 +156,8 @@ class MainCubit extends Cubit<MainState> {
         .collection("card")
         .doc(state.listOfCardId?[index])
         .update({"star": true});
+    state.listOfCards?[index].star = true;
+    emit(state.copyWith(list: state.listOfCards, fav: index));
     getCard();
   }
 

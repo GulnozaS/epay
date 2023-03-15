@@ -33,6 +33,7 @@ class _PaymentPageState extends State<PaymentPage> {
     getToken();
     cardController = MaskedTextController(mask: '0000 0000 0000 0000');
     moneyController = TextEditingController();
+    context.read<MainCubit>().findFavorite();
     super.initState();
   }
 

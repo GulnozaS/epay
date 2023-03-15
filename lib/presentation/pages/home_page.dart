@@ -184,7 +184,7 @@ class _HomePageState extends State<HomePage> {
                                     onPressed: () {
                                       context
                                           .read<MainCubit>()
-                                          ..makeFavorite(index)..findFavorite();
+                                          .makeFavorite(index).findFavorite();
                                     },
                                     icon: Icon(
                                         state.listOfCards?[index].star ?? false

@@ -50,7 +50,9 @@ class _AppWidgetState extends State<AppWidget> {
                 scaffoldBackgroundColor: Style.whiteColor,
                 textTheme: TextTheme(
                     headline1: Style.textStyleRegular(),
-                    headline2: Style.textStyleRegular(size: 24)),
+                    headline2: Style.textStyleRegular(size: 24),
+                  headline3: Style.textStyleThin(size: 14, textColor: Style.blackColor)
+                ),
                 inputDecorationTheme: InputDecorationTheme(
                     border: OutlineInputBorder(borderSide: const BorderSide(color: Style.blackColor, ), borderRadius: BorderRadius.circular(20)),
                     hintStyle: Style.textStyleThin(size: 14, textColor: Style.greyColor)
@@ -61,7 +63,8 @@ class _AppWidgetState extends State<AppWidget> {
                     headline1: Style.textStyleRegular(
                         textColor: Style.whiteColor),
                     headline2: Style.textStyleRegular(
-                        size: 24, textColor: Style.whiteColor)),
+                        size: 24, textColor: Style.whiteColor),
+                    headline3: Style.textStyleThin(size: 14, textColor: Style.whiteColor)),
                 bottomNavigationBarTheme: BottomNavigationBarThemeData(
                   backgroundColor: Style.blackColor,
                   selectedIconTheme: const IconThemeData(

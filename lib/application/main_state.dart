@@ -65,6 +65,6 @@ class MainState {
         selectedColorIndex: nSelectedColorIndex ?? selectedColorIndex,
         selectedImageIndex: nSelectedImageIndex ?? selectedImageIndex,
         selectedCardTypeIndex: nSelectedCardTypeIndex ?? selectedCardTypeIndex,
-        favIndex: fav);
+        favIndex: fav ?? favIndex);
   }
 }

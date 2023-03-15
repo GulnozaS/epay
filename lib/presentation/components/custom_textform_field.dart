@@ -37,6 +37,7 @@ class CustomTextFormField extends StatelessWidget {
         keyboardType: keyboardType,
         onChanged: onChanged,
         validator: validator,
+        style: Theme.of(context).textTheme.headline1,
         decoration: InputDecoration(
             hintText: hintText,
             contentPadding:
