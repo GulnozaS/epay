@@ -12,7 +12,6 @@ import 'package:motion_toast/resources/arrays.dart';
 import '../../application/main_cubit.dart';
 import '../../application/main_state.dart';
 import '../../infrastructure/unfocused_tap.dart';
-import '../style/style.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({Key? key}) : super(key: key);
@@ -77,7 +76,7 @@ class _PaymentPageState extends State<PaymentPage> {
                       children: [
                         Center(
                             child: Text("Make a payment",
-                                style:Theme.of(context).textTheme.headline2)),
+                                style:Theme.of(context).textTheme.displayMedium)),
                         24.verticalSpace,
                         CustomTextFormField(
                             controller: cardController,

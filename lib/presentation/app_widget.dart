@@ -6,11 +6,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../application/local_store.dart';
 
 class AppWidget extends StatefulWidget {
-  AppWidget({Key? key}) : super(key: key);
+  const AppWidget({Key? key}) : super(key: key);
 
   @override
   State<AppWidget> createState() => _AppWidgetState();
 
+  // ignore: library_private_types_in_public_api
   static _AppWidgetState? of(BuildContext context) =>
       context.findAncestorStateOfType<_AppWidgetState>();
 }
@@ -71,7 +72,7 @@ class _AppWidgetState extends State<AppWidget> {
                       Style.textStyleRegular(textColor: Style.whiteColor),
                 ),
               inputDecorationTheme: InputDecorationTheme(
-                border: OutlineInputBorder(borderSide: const BorderSide(color: Style.whiteColor ), borderRadius: BorderRadius.circular(20)),
+                border: OutlineInputBorder(borderSide: const BorderSide(color: Style.whiteColor, ), borderRadius: BorderRadius.circular(20)),
                 hintStyle: Style.textStyleThin(size: 14, textColor: Style.greyColor)
               )
             ),

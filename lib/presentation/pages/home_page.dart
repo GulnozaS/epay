@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
                 Center(
                     child: Text(
                   "Your Card Information",
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.displayMedium,
                 )),
                 24.verticalSpace,
                 Row(
@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
                 12.verticalSpace,
                 Text(
                   "Your Cards",
-                  style: Theme.of(context).textTheme.headline1,
+                  style: Theme.of(context).textTheme.displayLarge,
                 ),
                 Expanded(
                     child: ListView.builder(

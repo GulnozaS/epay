@@ -169,7 +169,6 @@ class MainCubit extends Cubit<MainState> {
   }
 
   sendNotification(String? fcmToken) {
-    print("notif");
     http.post(
       Uri.parse("https://fcm.googleapis.com/fcm/send"),
       headers: {

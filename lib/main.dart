@@ -16,5 +16,5 @@ Future<void> main() async {
       statusBarBrightness: Brightness.dark,
     ),
   );
-  runApp(AppWidget());
+  runApp( const AppWidget());
 }

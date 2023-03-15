@@ -93,7 +93,7 @@ class _EditPageState extends State<EditPage> {
                           splashRadius: 20,
                         ),
                         Text("Edit your card",
-                            style: Theme.of(context).textTheme.headline2),
+                            style: Theme.of(context).textTheme.displayMedium),
                         const SizedBox(
                           width: 30,
                         )
