@@ -6,6 +6,7 @@ class CardModel {
   String number;
   String expiration;
   String cardType;
+  bool? star;
 
   CardModel(
       {required this.number,
@@ -14,7 +15,8 @@ class CardModel {
       required this.color,
       required this.expiration,
       required this.ownerName,
-      required this.cardType});
+      required this.cardType,
+      this.star = false});
 
   factory CardModel.fromJson(Map data) {
     return CardModel(
@@ -24,7 +26,8 @@ class CardModel {
         color: data['color'],
         expiration: data['expiration'],
         ownerName: data['owner'],
-        cardType: data['cardType']);
+        cardType: data['cardType'],
+        star: data["star"]);
   }
 
   toJson() {
@@ -35,7 +38,8 @@ class CardModel {
       "color": color,
       "number": number,
       "expiration": expiration,
-      "cardType": cardType
+      "cardType": cardType,
+      "star": star
     };
   }
 }

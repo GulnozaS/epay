@@ -1,5 +1,5 @@
 import 'package:epay/infrastructure/masked.dart';
-import 'package:epay/presentation/pages/edit_page.dart';
+import 'package:epay/presentation/pages/edit/edit_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -136,7 +136,7 @@ class _HomePageState extends State<HomePage> {
                                           });
                                     },
                                     icon: const Icon(Icons.delete,
-                                        color: Style.greyColor),
+                                        color: Style.primaryBlue),
                                     splashRadius: 20,
                                   ),
                                   IconButton(
@@ -154,13 +154,16 @@ class _HomePageState extends State<HomePage> {
                                                   )));
                                     },
                                     icon: const Icon(Icons.edit,
-                                        color: Style.greyColor),
+                                        color: Style.primaryBlue),
                                     splashRadius: 20,
                                   ),
                                   IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.star_border,
-                                        color: Style.greyColor),
+                                    onPressed: () {
+                                      context.read<MainCubit>().makeFavorite(index);
+                                      context.read<MainCubit>().findFavorite();
+                                    },
+                                    icon:  Icon(state.listOfCards?[index].star ?? false ? Icons.star : Icons.star_border,
+                                        color: Style.primaryBlue),
                                     splashRadius: 20,
                                   ),
                                   12.horizontalSpace

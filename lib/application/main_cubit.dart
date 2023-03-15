@@ -135,4 +135,35 @@ class MainCubit extends Cubit<MainState> {
     state.listOfCardId?.removeAt(index);
     emit(state.copyWith(list: state.listOfCards, balance: state.totalBalance));
   }
+
+  makeFavorite(int index) {
+    for (int i = 0; i < (state.listOfCards?.length ?? 0); i++) {
+      if(i == index) {
+        continue;
+      } else if (state.listOfCards?[i].star == true) {
+        state.listOfCards?[i].star = false;
+        firestore
+            .collection("card")
+            .doc(state.listOfCardId?[i])
+            .update({"star": false});
+      }
+    }
+    firestore
+        .collection("card")
+        .doc(state.listOfCardId?[index])
+        .update({"star": true});
+    getCard();
+  }
+
+  findFavorite() {
+    print(state.listOfCards?.length);
+    for (int i = 0; i < (state.listOfCards?.length ?? 0); i++) {
+      print("For");
+      if (state.listOfCards?[i].star == true) {
+        print("if");
+       emit(state.copyWith(fav: i));
+      }
+    }
+    print(state.favIndex);
+  }
 }

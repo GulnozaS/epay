@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 
 import 'pages/add_card/add_card_page.dart';
-import 'pages/edit_page.dart';
+import 'pages/edit/edit_page.dart';
 import 'pages/home_page.dart';
 import 'pages/main_page.dart';
 import 'pages/payment_page.dart';

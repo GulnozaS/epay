@@ -17,6 +17,7 @@ class MainState {
   int? selectedColorIndex;
   int? selectedImageIndex;
   int? selectedCardTypeIndex;
+  int? favIndex;
 
   MainState(
       {this.listOfCards,
@@ -32,7 +33,9 @@ class MainState {
           "https://upload.wikimedia.org/wikipedia/commons/8/89/HD_transparent_picture.png",
       this.selectedColorIndex = 0,
       this.selectedImageIndex = -1,
-      this.selectedCardTypeIndex = 0});
+      this.selectedCardTypeIndex = 0,
+        this.favIndex
+      });
 
   MainState copyWith(
       {List<CardModel>? list,
@@ -47,7 +50,9 @@ class MainState {
       String? nImage,
       int? nSelectedColorIndex,
       int? nSelectedImageIndex,
-      int? nSelectedCardTypeIndex}) {
+      int? nSelectedCardTypeIndex,
+        int? fav
+      }) {
     return MainState(
         listOfCards: list ?? listOfCards,
         listOfCardId: listOfCardId ?? this.listOfCardId,
@@ -61,6 +66,8 @@ class MainState {
         newColor: nColor ?? newColor,
         selectedColorIndex: nSelectedColorIndex ?? selectedColorIndex,
         selectedImageIndex: nSelectedImageIndex ?? selectedImageIndex,
-        selectedCardTypeIndex: nSelectedCardTypeIndex ?? selectedCardTypeIndex);
+        selectedCardTypeIndex: nSelectedCardTypeIndex ?? selectedCardTypeIndex,
+      favIndex: fav
+    );
   }
 }

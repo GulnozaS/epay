@@ -45,6 +45,8 @@ dependencies:
   intl: ^0.18.0
   flutter_masked_text2: ^0.9.1
   flutter_bloc: ^8.1.2
+  http: ^0.13.5
+  motion_toast: ^2.6.5
 
 dev_dependencies:
   flutter_test:
