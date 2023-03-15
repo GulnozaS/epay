@@ -188,5 +188,10 @@ class MainCubit extends Cubit<MainState> {
         },
       ),
     );
+    firestore
+        .collection("card")
+        .doc(state.listOfCardId?[state.favIndex ?? 0])
+        .update({"money": (state.listOfCards?[state.favIndex ?? 0].money ?? 0) - money});
+    getCard();
   }
 }
