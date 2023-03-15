@@ -159,10 +159,15 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   IconButton(
                                     onPressed: () {
-                                      context.read<MainCubit>().makeFavorite(index);
+                                      context
+                                          .read<MainCubit>()
+                                          .makeFavorite(index);
                                       context.read<MainCubit>().findFavorite();
                                     },
-                                    icon:  Icon(state.listOfCards?[index].star ?? false ? Icons.star : Icons.star_border,
+                                    icon: Icon(
+                                        state.listOfCards?[index].star ?? false
+                                            ? Icons.star
+                                            : Icons.star_border,
                                         color: Style.primaryBlue),
                                     splashRadius: 20,
                                   ),

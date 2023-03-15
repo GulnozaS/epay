@@ -9,7 +9,8 @@ import '../style/style.dart';
 // ignore: must_be_immutable
 class CustomChooseColor extends StatefulWidget {
   bool? isEdit;
-   CustomChooseColor({Key? key, this.isEdit = false}) : super(key: key);
+
+  CustomChooseColor({Key? key, this.isEdit = false}) : super(key: key);
 
   @override
   State<CustomChooseColor> createState() => _CustomChooseColorState();
@@ -46,8 +47,13 @@ class _CustomChooseColorState extends State<CustomChooseColor> {
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
-                          widget.isEdit ?? false ? context.read<MainCubit>().editCard(colorIndex: index, color: listOfColor[index].toString()) : context.read<MainCubit>()
-                            .getNewCard(colorIndex: index, color: listOfColor[index].toString());
+                          widget.isEdit ?? false
+                              ? context.read<MainCubit>().editCard(
+                                  colorIndex: index,
+                                  color: listOfColor[index].toString())
+                              : context.read<MainCubit>().getNewCard(
+                                  colorIndex: index,
+                                  color: listOfColor[index].toString());
                         },
                         child: Container(
                           height: 50,

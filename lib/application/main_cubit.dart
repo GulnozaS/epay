@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:http/http.dart' as http;
 
 import '../domain/model/card_model.dart';
 import 'main_state.dart';
@@ -138,7 +142,7 @@ class MainCubit extends Cubit<MainState> {
 
   makeFavorite(int index) {
     for (int i = 0; i < (state.listOfCards?.length ?? 0); i++) {
-      if(i == index) {
+      if (i == index) {
         continue;
       } else if (state.listOfCards?[i].star == true) {
         state.listOfCards?[i].star = false;
@@ -156,14 +160,30 @@ class MainCubit extends Cubit<MainState> {
   }
 
   findFavorite() {
-    print(state.listOfCards?.length);
     for (int i = 0; i < (state.listOfCards?.length ?? 0); i++) {
-      print("For");
       if (state.listOfCards?[i].star == true) {
-        print("if");
-       emit(state.copyWith(fav: i));
+        emit(state.copyWith(fav: i));
       }
     }
-    print(state.favIndex);
+  }
+
+  sendNotification(String? fcmToken) {
+    http.post(
+      Uri.parse("https://fcm.googleapis.com/fcm/send"),
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization':
+            'key=AAAA_SksxgQ:APA91bGcAHUd-Gss3xP1MVoS4NijuB--DE0w2HWwtfCie1dRmw5lHI3ULxW8DPpXuUmgD7kgkrUGfANCEX9MB8gL_LJIkY4XmC6Vnih773rhrMaQgA5hr-h8B-tUetrYIrJuFUwoSY3u'
+      },
+      body: jsonEncode(
+        {
+          "to": fcmToken,
+          "data": {
+            "body": "You have successfully paid!",
+            "title": "Thank you for working with us"
+          }
+        },
+      ),
+    );
   }
 }

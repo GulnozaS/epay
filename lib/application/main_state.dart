@@ -34,8 +34,7 @@ class MainState {
       this.selectedColorIndex = 0,
       this.selectedImageIndex = -1,
       this.selectedCardTypeIndex = 0,
-        this.favIndex
-      });
+      this.favIndex});
 
   MainState copyWith(
       {List<CardModel>? list,
@@ -51,8 +50,7 @@ class MainState {
       int? nSelectedColorIndex,
       int? nSelectedImageIndex,
       int? nSelectedCardTypeIndex,
-        int? fav
-      }) {
+      int? fav}) {
     return MainState(
         listOfCards: list ?? listOfCards,
         listOfCardId: listOfCardId ?? this.listOfCardId,
@@ -67,7 +65,6 @@ class MainState {
         selectedColorIndex: nSelectedColorIndex ?? selectedColorIndex,
         selectedImageIndex: nSelectedImageIndex ?? selectedImageIndex,
         selectedCardTypeIndex: nSelectedCardTypeIndex ?? selectedCardTypeIndex,
-      favIndex: fav
-    );
+        favIndex: fav);
   }
 }

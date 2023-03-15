@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:epay/presentation/components/custom_add_button.dart';
 import 'package:epay/presentation/components/custom_card.dart';
 import 'package:epay/presentation/components/custom_textform_field.dart';
@@ -8,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:http/http.dart' as http;
 import 'package:motion_toast/motion_toast.dart';
 import 'package:motion_toast/resources/arrays.dart';
 
@@ -39,7 +36,6 @@ class _PaymentPageState extends State<PaymentPage> {
     moneyController = TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<MainCubit>().findFavorite();
-      print(context.read<MainCubit>().state.favIndex);
     });
     super.initState();
   }
@@ -57,19 +53,14 @@ class _PaymentPageState extends State<PaymentPage> {
       sound: true,
     );
     fcmToken = await FirebaseMessaging.instance.getToken();
-    print(fcmToken);
     FirebaseMessaging.onMessage.listen((event) {
-      print(event.data);
-
       MotionToast.success(
         position: MotionToastPosition.top,
         title: Text(event.data["body"] ?? "body"),
         description: Text(event.data["title"] ?? "title"),
       ).show(context);
     });
-    FirebaseMessaging.onMessageOpenedApp.listen((event) {
-      print("onMessageOpenedApp : $event");
-    });
+    FirebaseMessaging.onMessageOpenedApp.listen((event) {});
   }
 
   @override
@@ -148,35 +139,30 @@ class _PaymentPageState extends State<PaymentPage> {
                                   ),
                                 ],
                               )
-                            : const Text("You don't have fav"),
+                            : const Center(
+                                child: Text("You do not have a card")),
                         24.verticalSpace,
                         CustomAddButton(
                           onTap: () {
-                            if (formKey.currentState?.validate() ?? false) {
-                              http.post(
-                                Uri.parse(
-                                    "https://fcm.googleapis.com/fcm/send"),
-                                headers: {
-                                  "Content-Type": "application/json",
-                                  'Authorization':
-                                      'key=AAAA_SksxgQ:APA91bGcAHUd-Gss3xP1MVoS4NijuB--DE0w2HWwtfCie1dRmw5lHI3ULxW8DPpXuUmgD7kgkrUGfANCEX9MB8gL_LJIkY4XmC6Vnih773rhrMaQgA5hr-h8B-tUetrYIrJuFUwoSY3u'
-                                },
-                                body: jsonEncode(
-                                  {
-                                    "to": fcmToken,
-                                    "data": {
-                                      "body": "You have successfully paid!",
-                                      "title": "Thank you for working with us"
-                                    }
-                                  },
-                                ),
-                              );
+                            if (state.listOfCards?.isEmpty ?? true) {
+                              MotionToast.error(
+                                      position: MotionToastPosition.top,
+                                      title:
+                                          const Text("You do not have a card"),
+                                      description:
+                                          const Text("Please add a new card"))
+                                  .show(context);
+                            } else if ((formKey.currentState?.validate() ??
+                                false)) {
+                              context
+                                  .read<MainCubit>()
+                                  .sendNotification(fcmToken);
                               cardController.clear();
                               moneyController.clear();
                             }
                           },
                           title: "Pay",
-                          isValid: formKey.currentState?.validate() ?? false,
+                          isValid: true,
                         )
                       ]),
                 );

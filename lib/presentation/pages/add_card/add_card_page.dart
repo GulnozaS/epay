@@ -96,7 +96,9 @@ class _AddCardPageState extends State<AddCardPage> {
                                 controller: numberController,
                                 keyboardType: TextInputType.number,
                                 onChanged: (s) {
-                                  context.read<MainCubit>().getNewCard(number: s);
+                                  context
+                                      .read<MainCubit>()
+                                      .getNewCard(number: s);
                                 },
                                 validator: (s) {
                                   if (s?.isEmpty ?? true) {
@@ -175,7 +177,8 @@ class _AddCardPageState extends State<AddCardPage> {
                                   moneyController.clear();
                                 }
                               },
-                              isValid: formKey.currentState?.validate() ?? false,
+                              isValid:
+                                  formKey.currentState?.validate() ?? false,
                               title: 'Add',
                             ),
                           ],
