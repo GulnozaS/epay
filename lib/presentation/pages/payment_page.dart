@@ -150,11 +150,19 @@ class _PaymentPageState extends State<PaymentPage> {
                                       description:
                                           const Text("Please add a new card"))
                                   .show(context);
-                            } else if ((formKey.currentState?.validate() ??
-                                false)) {
+                            } else if (int.parse(moneyController.text) > state.listOfCards![state?.favIndex ?? 0].money) {
+
+                              MotionToast.error(
+                                  position: MotionToastPosition.top,
+                                  title:  Text("Not Enough Balance"),
+                                  description:  Text("Please choose another card")
+                              ).show(context);
+                            }
+                            else if(formKey.currentState?.validate() ??
+                                false){
                               context
                                   .read<MainCubit>()
-                                  .sendNotification(fcmToken);
+                                  .sendNotification(fcmToken, int.parse(moneyController.text));
                               cardController.clear();
                               moneyController.clear();
                             }

@@ -51,34 +51,73 @@ class _AppWidgetState extends State<AppWidget> {
                 textTheme: TextTheme(
                     headline1: Style.textStyleRegular(),
                     headline2: Style.textStyleRegular(size: 24),
-                  headline3: Style.textStyleThin(size: 14, textColor: Style.blackColor)
-                ),
+                    headline3: Style.textStyleThin(
+                        size: 14, textColor: Style.blackColor)),
                 inputDecorationTheme: InputDecorationTheme(
-                    border: OutlineInputBorder(borderSide: const BorderSide(color: Style.blackColor, ), borderRadius: BorderRadius.circular(20)),
-                    hintStyle: Style.textStyleThin(size: 14, textColor: Style.greyColor)
-                )),
+                    border: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Style.blackColor,
+                        ),
+                        borderRadius: BorderRadius.circular(20)),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Style.blackColor,
+                        ),
+                        borderRadius: BorderRadius.circular(20)),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Style.blackColor,
+                        ),
+                        borderRadius: BorderRadius.circular(20)),
+                    disabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Style.blackColor,
+                        ),
+                        borderRadius: BorderRadius.circular(20)),
+                    hintStyle: Style.textStyleThin(
+                        size: 14, textColor: Style.greyColor))),
             darkTheme: ThemeData(
                 scaffoldBackgroundColor: Style.blackColor,
                 textTheme: TextTheme(
-                    headline1: Style.textStyleRegular(
-                        textColor: Style.whiteColor),
+                    headline1:
+                        Style.textStyleRegular(textColor: Style.whiteColor),
                     headline2: Style.textStyleRegular(
                         size: 24, textColor: Style.whiteColor),
-                    headline3: Style.textStyleThin(size: 14, textColor: Style.whiteColor)),
+                    headline3: Style.textStyleThin(
+                        size: 14, textColor: Style.whiteColor)),
                 bottomNavigationBarTheme: BottomNavigationBarThemeData(
                   backgroundColor: Style.blackColor,
-                  selectedIconTheme: const IconThemeData(
-                    color: Style.primaryBlue
-                  ),
-                  unselectedIconTheme: const IconThemeData(color: Style.whiteColor),
+                  selectedIconTheme:
+                      const IconThemeData(color: Style.primaryBlue),
+                  unselectedIconTheme:
+                      const IconThemeData(color: Style.whiteColor),
                   unselectedLabelStyle:
                       Style.textStyleRegular(textColor: Style.whiteColor),
                 ),
-              inputDecorationTheme: InputDecorationTheme(
-                border: OutlineInputBorder(borderSide: const BorderSide(color: Style.whiteColor, ), borderRadius: BorderRadius.circular(20)),
-                hintStyle: Style.textStyleThin(size: 14, textColor: Style.greyColor)
-              )
-            ),
+                inputDecorationTheme: InputDecorationTheme(
+                    border: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Style.whiteColor,
+                        ),
+                        borderRadius: BorderRadius.circular(20)),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Style.whiteColor,
+                        ),
+                        borderRadius: BorderRadius.circular(20)),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Style.whiteColor,
+                        ),
+                        borderRadius: BorderRadius.circular(20)),
+                    disabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Style.whiteColor,
+                        ),
+                        borderRadius: BorderRadius.circular(20)),
+
+                    hintStyle: Style.textStyleThin(
+                        size: 14, textColor: Style.greyColor))),
             debugShowCheckedModeBanner: false,
             routerDelegate: appRouter.delegate(),
             routeInformationParser: appRouter.defaultRouteParser());
