@@ -109,7 +109,7 @@ class _PaymentPageState extends State<PaymentPage> {
                             ? Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Text("You are paying from"),
+                                   Text("You are paying from", style: Theme.of(context).textTheme.headline3,),
                                   8.verticalSpace,
                                   CustomCard(
                                     expiration: state
@@ -150,7 +150,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                       description:
                                           const Text("Please add a new card"))
                                   .show(context);
-                            } else if (int.parse(moneyController.text) > state.listOfCards![state?.favIndex ?? 0].money) {
+                            } else if (int.parse(moneyController.text) > state.listOfCards![state.favIndex ?? 0].money) {
 
                               MotionToast.error(
                                   position: MotionToastPosition.top,

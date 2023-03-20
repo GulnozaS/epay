@@ -33,7 +33,7 @@ class MainPage extends StatelessWidget {
                 },
                 items: const [
                   BottomNavigationBarItem(
-                      label: '', icon: Icon(Icons.home)),
+                      label: '', icon: Icon(Icons.home),),
                   BottomNavigationBarItem(
                       label: '', icon: Icon(Icons.add_circle_outline)),
                   BottomNavigationBarItem(
